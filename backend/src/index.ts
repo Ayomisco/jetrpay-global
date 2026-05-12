@@ -20,6 +20,7 @@ if (!process.env.REDIS_URL) {
 
 import { logger } from '@/utils/logger';
 import { testConnection } from '@/db';
+import { runMigrations } from '@/db/migrate';
 import { connectRedis, disconnectRedis } from '@/utils/redis';
 import { startTransferExpiryJob } from '@/jobs/transferExpiry';
 import app from '@/app';
@@ -29,6 +30,9 @@ const PORT = process.env.PORT || 3000;
 async function bootstrap() {
   // Connect Redis before accepting requests
   await connectRedis();
+
+  // Run DB migrations before starting — idempotent, safe on every deploy
+  await runMigrations();
 
   const server = app.listen(PORT, async () => {
     const dbConnected = await testConnection();

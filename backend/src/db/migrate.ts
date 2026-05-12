@@ -1,38 +1,25 @@
+import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import { db } from '@/db';
 import { logger } from '@/utils/logger';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-/**
- * Run pending migrations
- * This script applies all pending Drizzle migrations to the database
- */
-async function migrate() {
-  try {
-    logger.info('🔄 Checking for pending migrations...');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-    // Drizzle handles migrations through the schema
-    // You can use: pnpm db:push (applies schema directly)
-    // Or: pnpm db:generate then pnpm db:migrate
-
-    logger.info('✅ Database is up to date!');
-    logger.info('\n📊 Tables created:');
-    logger.info('   - users');
-    logger.info('   - user_profiles');
-    logger.info('   - wallets');
-    logger.info('   - cards');
-    logger.info('   - transactions');
-    logger.info('   - kyc_submissions');
-    logger.info('   - compliance_flags');
-    logger.info('   - devices');
-    logger.info('   - merchants');
-    logger.info('   - payment_links');
-    logger.info('   - audit_logs');
-    logger.info('   - contacts');
-
-    process.exit(0);
-  } catch (error) {
-    logger.error('❌ Migration failed:', error);
-    process.exit(1);
-  }
+export async function runMigrations(): Promise<void> {
+  // Resolves correctly both from src/ (tsx) and dist/ (node)
+  const migrationsFolder = path.resolve(__dirname, '../../migrations');
+  logger.info({ message: 'Running DB migrations', migrationsFolder });
+  await migrate(db, { migrationsFolder });
+  logger.info('Migrations complete');
 }
 
-migrate();
+// Allow running directly: tsx src/db/migrate.ts
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  runMigrations()
+    .then(() => process.exit(0))
+    .catch((err) => {
+      console.error('Migration failed:', err);
+      process.exit(1);
+    });
+}
