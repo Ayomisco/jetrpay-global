@@ -1,0 +1,40 @@
+{
+  "name": "jetrpay-frontend",
+  "version": "1.0.0",
+  "description": "JetrPay - Mobile-first fintech remittance and wallet platform",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "axios": "^1.6.2",
+    "zustand": "^5.0.1",
+    "@tanstack/react-query": "^5.62.7",
+    "@tanstack/react-query-devtools": "^5.62.7",
+    "framer-motion": "^11.15.0",
+    "qrcode.react": "^4.2.0",
+    "js-cookie": "^3.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/js-cookie": "^3.0.6",
+    "typescript": "^5.3.3",
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.32",
+    "eslint": "^8.55.0",
+    "eslint-config-next": "15.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
