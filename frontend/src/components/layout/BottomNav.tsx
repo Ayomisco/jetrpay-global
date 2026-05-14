@@ -25,10 +25,10 @@ export default function BottomNav() {
               href={href}
               className={cn(
                 'flex flex-col items-center gap-1 px-3 py-1.5 rounded-xl transition-all min-w-[56px]',
-                active ? 'text-indigo-400' : 'text-white/40'
+                active ? 'text-orange-400' : 'text-white/40'
               )}
             >
-              <span className={cn('text-xl leading-none', active && 'drop-shadow-[0_0_8px_rgba(99,102,241,0.6)]')}>
+              <span className={cn('text-xl leading-none', active && 'drop-shadow-[0_0_8px_rgba(240,69,0,0.7)]')}>
                 {icon}
               </span>
               <span className="text-[10px] font-medium">{label}</span>

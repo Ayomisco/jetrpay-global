@@ -26,7 +26,7 @@ export default function TransactionRow({ tx }: { tx: Transaction }) {
   return (
     <div className="flex items-center gap-3 py-3.5 border-b border-white/5 last:border-0">
       <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0 ${
-        isCredit ? 'bg-emerald-500/15 text-emerald-400' : 'bg-indigo-500/15 text-indigo-400'
+        isCredit ? 'bg-emerald-500/15 text-emerald-400' : 'bg-orange-500/12 text-orange-400'
       }`}>
         {icon}
       </div>

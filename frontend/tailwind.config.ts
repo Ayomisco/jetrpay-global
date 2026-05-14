@@ -9,24 +9,33 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: {
-          900: '#0a0f1e',
-          800: '#0d1526',
-          700: '#111c33',
-          600: '#162040',
-          500: '#1a2550',
+        dark: {
+          900: '#080808',
+          800: '#0f0f0f',
+          700: '#141414',
+          600: '#1a1a1a',
+          500: '#222222',
         },
-        glass: 'rgba(255,255,255,0.05)',
+        // Keep navy alias pointing to dark for legacy class usage
+        navy: {
+          900: '#080808',
+          800: '#0f0f0f',
+          700: '#141414',
+          600: '#1a1a1a',
+          500: '#222222',
+        },
+        glass: 'rgba(255,255,255,0.04)',
         brand: {
-          indigo: '#6366f1',
-          purple: '#9333ea',
+          orange: '#F04500',
+          'orange-light': '#FF6B2B',
+          'orange-dark': '#C23400',
           emerald: '#10b981',
           rose: '#f43f5e',
         },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-brand': 'linear-gradient(135deg, #6366f1 0%, #9333ea 100%)',
+        'gradient-brand': 'linear-gradient(135deg, #C23400 0%, #F04500 50%, #FF6B2B 100%)',
       },
       backdropBlur: {
         xs: '2px',
@@ -39,10 +48,11 @@ const config: Config = {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        glass: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-        'glass-sm': '0 4px 16px 0 rgba(31, 38, 135, 0.2)',
-        glow: '0 0 20px rgba(99, 102, 241, 0.3)',
-        'glow-sm': '0 0 10px rgba(99, 102, 241, 0.2)',
+        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.6)',
+        'glass-sm': '0 4px 16px 0 rgba(0, 0, 0, 0.4)',
+        glow: '0 0 24px rgba(240, 69, 0, 0.35)',
+        'glow-sm': '0 0 12px rgba(240, 69, 0, 0.2)',
+        'glow-lg': '0 0 48px rgba(240, 69, 0, 0.25)',
       },
       borderRadius: {
         '2xl': '1rem',

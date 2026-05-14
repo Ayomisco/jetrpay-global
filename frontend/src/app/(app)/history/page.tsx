@@ -14,8 +14,8 @@ export default function HistoryPage() {
   const [page, setPage] = useState(1);
 
   const wallet = wallets?.[selectedWalletIdx];
-  const { data, isLoading } = useTransactions(wallet?.id || '', { page, limit: 20 });
-  const rawTxs: any[] = data?.transactions || data || [];
+  const { data, isLoading } = useTransactions(wallet?.id || '', { page, pageSize: 20 });
+  const rawTxs: any[] = data?.data || [];
 
   const filtered = rawTxs.filter((tx) => {
     if (filter === 'All') return true;
@@ -41,7 +41,7 @@ export default function HistoryPage() {
               onClick={() => { setSelectedWalletIdx(i); setPage(1); }}
               className={`flex-shrink-0 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                 i === selectedWalletIdx
-                  ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+                  ? 'bg-orange-500/20 text-orange-300 border border-orange-500/30'
                   : 'glass text-white/50 hover:text-white'
               }`}
             >
@@ -59,7 +59,7 @@ export default function HistoryPage() {
             onClick={() => setFilter(f)}
             className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-all border ${
               filter === f
-                ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30'
+                ? 'bg-orange-500/20 text-orange-300 border-orange-500/30'
                 : 'border-white/10 text-white/40 hover:text-white'
             }`}
           >

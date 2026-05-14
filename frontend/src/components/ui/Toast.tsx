@@ -33,7 +33,7 @@ export function ToastProvider() {
             'glass px-4 py-3 rounded-xl text-sm font-medium animate-slide-down shadow-glass',
             t.type === 'success' && 'border-emerald-500/30 text-emerald-300',
             t.type === 'error'   && 'border-rose-500/30 text-rose-300',
-            t.type === 'info'    && 'border-indigo-500/30 text-indigo-300',
+            t.type === 'info'    && 'border-orange-500/30 text-orange-300',
           )}
         >
           {t.message}

@@ -182,6 +182,27 @@ CREATE TABLE IF NOT EXISTS "wallets" (
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+DO $$ BEGIN
+ IF EXISTS (
+	 SELECT 1
+	 FROM information_schema.tables
+	 WHERE table_schema = 'public' AND table_name = 'cards'
+ ) THEN
+	ALTER TABLE "cards" ADD COLUMN IF NOT EXISTS "card_number_last_four" varchar(4);
+
+	IF EXISTS (
+		SELECT 1 FROM information_schema.columns
+		WHERE table_schema = 'public' AND table_name = 'cards' AND column_name = 'card_number'
+	) THEN
+		UPDATE "cards"
+		SET "card_number_last_four" = RIGHT("card_number", 4)
+		WHERE "card_number_last_four" IS NULL
+			AND "card_number" IS NOT NULL
+			AND char_length("card_number") >= 4;
+	END IF;
+ END IF;
+END $$;
+--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "audit_logs_user_id_idx" ON "audit_logs" ("user_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "audit_logs_action_idx" ON "audit_logs" ("action");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "audit_logs_resource_idx" ON "audit_logs" ("resource");--> statement-breakpoint

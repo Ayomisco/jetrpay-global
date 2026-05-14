@@ -50,7 +50,7 @@ api.interceptors.response.use(
       if (!refreshToken) {
         isRefreshing = false;
         clearAuth();
-        if (typeof window !== 'undefined') window.location.href = '/auth/login';
+        if (typeof window !== 'undefined') window.location.href = '/login';
         return Promise.reject(error);
       }
 
@@ -64,7 +64,7 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null);
         clearAuth();
-        if (typeof window !== 'undefined') window.location.href = '/auth/login';
+        if (typeof window !== 'undefined') window.location.href = '/login';
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
@@ -93,13 +93,25 @@ export const authApi = {
 
   signup: (payload: {
     fullName: string; email: string; phone: string; password: string; country?: string;
-  }) => api.post('/auth/signup', payload).then((r) => r.data),
+  }) => {
+    const parts = payload.fullName.trim().split(/\s+/);
+    const firstName = parts[0] || payload.fullName;
+    const lastName = parts.length > 1 ? parts.slice(1).join(' ') : firstName;
+    return api.post('/auth/signup', {
+      firstName,
+      lastName,
+      email: payload.email,
+      phone: payload.phone,
+      password: payload.password,
+      ...(payload.country && { country: payload.country }),
+    }).then((r) => r.data);
+  },
 
-  verifyOtp: (email: string, code: string, purpose: string) =>
-    api.post('/auth/verify-otp', { email, code, purpose }).then((r) => r.data),
+  verifyOtp: (email: string, otp: string) =>
+    api.post('/auth/verify-otp', { email, otp }).then((r) => r.data),
 
-  resendOtp: (email: string, purpose: string) =>
-    api.post('/auth/resend-otp', { email, purpose }).then((r) => r.data),
+  resendOtp: (email: string) =>
+    api.post('/auth/resend-otp', { email }).then((r) => r.data),
 
   me: () => api.get('/auth/me').then((r) => r.data),
 
@@ -109,14 +121,14 @@ export const authApi = {
 export const walletApi = {
   list: () => api.get('/wallets').then((r) => r.data),
   get: (id: string) => api.get(`/wallets/${id}`).then((r) => r.data),
-  transactions: (id: string, params?: { page?: number; limit?: number; type?: string }) =>
+  transactions: (id: string, params?: { page?: number; pageSize?: number; type?: string }) =>
     api.get(`/wallets/${id}/transactions`, { params }).then((r) => r.data),
   freeze: (id: string) => api.patch(`/wallets/${id}/freeze`).then((r) => r.data),
   unfreeze: (id: string) => api.patch(`/wallets/${id}/unfreeze`).then((r) => r.data),
 };
 
 export const transferApi = {
-  p2p: (payload: { recipientEmail?: string; recipientPhone?: string; amount: number; currency: string; description?: string }) =>
+  p2p: (payload: { senderWalletId: string; recipientEmail?: string; recipientPhone?: string; amount: number; currency: string; description?: string }) =>
     api.post('/transfers/p2p', payload, { headers: { 'Idempotency-Key': crypto.randomUUID() } }).then((r) => r.data),
 
   bank: (payload: {

@@ -6,7 +6,8 @@ export interface User {
   id: string;
   email: string;
   phone?: string;
-  fullName?: string;
+  firstName?: string;
+  lastName?: string;
   kycStatus?: 'PENDING' | 'APPROVED' | 'REJECTED' | 'NOT_STARTED';
   country?: string;
   createdAt?: string;
@@ -17,7 +18,7 @@ interface AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<{ requiresOtp?: boolean; email?: string }>;
-  completeOtp: (email: string, code: string, purpose?: string) => Promise<void>;
+  completeOtp: (email: string, otp: string) => Promise<void>;
   signup: (payload: { fullName: string; email: string; phone: string; password: string; country?: string }) => Promise<{ email: string }>;
   logout: () => Promise<void>;
   fetchMe: () => Promise<void>;
@@ -47,10 +48,10 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
-      completeOtp: async (email, code, purpose = 'LOGIN') => {
+      completeOtp: async (email, otp) => {
         set({ isLoading: true });
         try {
-          const data = await authApi.verifyOtp(email, code, purpose);
+          const data = await authApi.verifyOtp(email, otp);
           if (data.accessToken) {
             setTokens(data.accessToken, data.refreshToken);
             set({ user: data.user || data.member, isAuthenticated: true });

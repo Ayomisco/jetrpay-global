@@ -15,7 +15,7 @@ export const useWallet = (id: string) =>
     enabled: !!id,
   });
 
-export const useTransactions = (walletId: string, params?: { page?: number; limit?: number }) =>
+export const useTransactions = (walletId: string, params?: { page?: number; pageSize?: number }) =>
   useQuery({
     queryKey: ['transactions', walletId, params],
     queryFn: () => walletApi.transactions(walletId, params).then((d) => d.data || d),

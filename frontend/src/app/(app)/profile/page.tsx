@@ -15,7 +15,7 @@ export default function ProfilePage() {
 
   const handleLogout = async () => {
     await logout();
-    router.replace('/auth/login');
+    router.replace('/login');
   };
 
   const kycColors: Record<string, string> = {
@@ -37,10 +37,10 @@ export default function ProfilePage() {
     <div className="flex flex-col gap-6 animate-fade-in">
       {/* Avatar + name */}
       <div className="flex flex-col items-center text-center pt-2 pb-4">
-        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-3xl font-bold text-white mb-3">
-          {getInitials(user?.fullName || user?.email || 'U')}
+        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-3xl font-bold text-white mb-3">
+          {getInitials([user?.firstName, user?.lastName].filter(Boolean).join(' ') || user?.email || 'U')}
         </div>
-        <h1 className="text-xl font-bold text-white">{user?.fullName || 'Your Account'}</h1>
+        <h1 className="text-xl font-bold text-white">{[user?.firstName, user?.lastName].filter(Boolean).join(' ') || 'Your Account'}</h1>
         <p className="text-white/40 text-sm mt-0.5">{user?.email}</p>
         <div className="flex items-center gap-2 mt-2">
           <span className="text-xs text-white/30">KYC:</span>
@@ -58,7 +58,7 @@ export default function ProfilePage() {
             {wallets.map((w: any) => (
               <div key={w.id} className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center text-xs font-bold text-indigo-400">
+                  <div className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-xs font-bold text-orange-400">
                     {w.currency}
                   </div>
                   <div>

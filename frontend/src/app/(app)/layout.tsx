@@ -12,21 +12,21 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, fetchMe } = useAuthStore();
 
   useEffect(() => {
-    if (!isAuthenticated) { router.replace('/auth/login'); return; }
-    fetchMe().catch(() => router.replace('/auth/login'));
+    if (!isAuthenticated) { router.replace('/login'); return; }
+    fetchMe().catch(() => router.replace('/login'));
   }, [isAuthenticated, router, fetchMe]);
 
   if (!isAuthenticated) return (
-    <div className="min-h-screen bg-navy-900 flex items-center justify-center">
-      <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+    <div className="min-h-screen bg-[#080808] flex items-center justify-center">
+      <div className="w-8 h-8 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-navy-900 relative overflow-hidden">
+    <div className="min-h-screen bg-[#080808] relative overflow-hidden">
       {/* Ambient background */}
-      <div className="fixed top-[-15%] right-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-600/8 blur-[120px] pointer-events-none" />
-      <div className="fixed bottom-[-20%] left-[-5%] w-[400px] h-[400px] rounded-full bg-purple-600/8 blur-[100px] pointer-events-none" />
+      <div className="fixed top-[-15%] right-[-10%] w-[500px] h-[500px] rounded-full bg-orange-600/6 blur-[140px] pointer-events-none" />
+      <div className="fixed bottom-[-20%] left-[-5%] w-[400px] h-[400px] rounded-full bg-orange-500/4 blur-[120px] pointer-events-none" />
 
       <Sidebar />
 

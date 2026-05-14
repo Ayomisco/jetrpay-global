@@ -39,11 +39,11 @@ export default function ReceivePage() {
 
       {/* QR Card */}
       <Card className="flex flex-col items-center py-8 gap-5">
-        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-2xl font-bold text-white mb-1">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-2xl font-bold text-white mb-1">
           J
         </div>
         <div className="text-center">
-          <p className="text-white font-semibold">{user?.fullName || 'Your Account'}</p>
+          <p className="text-white font-semibold">{[user?.firstName, user?.lastName].filter(Boolean).join(' ') || 'Your Account'}</p>
           <p className="text-white/40 text-sm">{user?.email}</p>
         </div>
 
@@ -68,7 +68,7 @@ export default function ReceivePage() {
               <p className="text-xs text-white/40 mb-0.5">{label}</p>
               <p className="text-sm text-white font-medium truncate">{value}</p>
             </div>
-            <span className="text-xs text-indigo-400 flex-shrink-0">
+            <span className="text-xs text-orange-400 flex-shrink-0">
               {copied === key ? '✓ Copied' : 'Copy'}
             </span>
           </Card>

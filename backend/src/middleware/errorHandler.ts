@@ -27,7 +27,7 @@ export const errorHandler = (
       statusCode: err.statusCode,
       path: req.path,
       method: req.method
-    });
+    }, 'AppError');
 
     return res.status(err.statusCode).json({
       error: {
@@ -55,7 +55,7 @@ export const errorHandler = (
     stack: err.stack,
     path: req.path,
     method: req.method
-  });
+  }, 'Unhandled error');
 
   res.status(500).json({
     error: {

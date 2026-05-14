@@ -19,16 +19,16 @@ export default function Sidebar() {
   const router = useRouter();
   const { user, logout } = useAuthStore();
 
-  const handleLogout = async () => { await logout(); router.replace('/auth/login'); };
+  const handleLogout = async () => { await logout(); router.replace('/login'); };
 
   return (
     <aside className="hidden lg:flex flex-col w-64 min-h-screen glass-dark border-r border-white/8 px-4 py-6 fixed left-0 top-0 bottom-0 z-40">
       {/* Logo */}
       <div className="flex items-center gap-3 px-2 mb-8">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-white text-sm">
-          J
+        <div className="w-9 h-9 rounded-xl  flex items-center justify-center font-bold">
+          <img src="/logo.png" alt="JetrPay Logo" className="w-12 h-12" />
         </div>
-        <span className="font-bold text-white text-lg">JetrPay</span>
+        {/* <span className="font-bold text-white text-lg">JetrPay</span> */}
       </div>
 
       {/* Navigation */}
@@ -42,7 +42,7 @@ export default function Sidebar() {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all',
                 active
-                  ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+                  ? 'bg-orange-500/15 text-orange-400 border border-orange-500/25'
                   : 'text-white/50 hover:text-white hover:bg-white/5'
               )}
             >
@@ -56,11 +56,11 @@ export default function Sidebar() {
       {/* User + logout */}
       <div className="mt-auto border-t border-white/8 pt-4">
         <div className="flex items-center gap-3 px-2 mb-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
-            {getInitials(user?.fullName || user?.email || 'U')}
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
+            {getInitials([user?.firstName, user?.lastName].filter(Boolean).join(' ') || user?.email || 'U')}
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-medium text-white truncate">{user?.fullName || 'Account'}</p>
+            <p className="text-sm font-medium text-white truncate">{[user?.firstName, user?.lastName].filter(Boolean).join(' ') || 'Account'}</p>
             <p className="text-xs text-white/40 truncate">{user?.email}</p>
           </div>
         </div>

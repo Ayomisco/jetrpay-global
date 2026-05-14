@@ -14,7 +14,7 @@
   }
 
   body {
-    background-color: #0a0f1e;
+    background-color: #080808;
     color: white;
     min-height: 100dvh;
     overflow-x: hidden;
@@ -22,34 +22,34 @@
 
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 999px; }
 }
 
 @layer components {
   .glass {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 1rem;
   }
 
   .glass-dark {
-    background: rgba(10, 15, 30, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(8, 8, 8, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #6366f1 0%, #9333ea 100%);
+    background: linear-gradient(135deg, #F04500 0%, #FF6B2B 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, #6366f1 0%, #9333ea 100%);
+    background: linear-gradient(135deg, #C23400 0%, #F04500 60%, #FF6B2B 100%);
     color: white;
     font-weight: 600;
     border-radius: 0.75rem;
@@ -58,35 +58,43 @@
     overflow: hidden;
   }
 
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 100%);
+    border-radius: inherit;
+  }
+
   .btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 8px 28px rgba(240, 69, 0, 0.45);
   }
 
   .btn-primary:active { transform: translateY(0); }
 
   .input-glass {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.75rem;
     color: white;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
 
-  .input-glass::placeholder { color: rgba(255,255,255,0.3); }
+  .input-glass::placeholder { color: rgba(255,255,255,0.25); }
   .input-glass:focus {
     outline: none;
-    border-color: rgba(99, 102, 241, 0.6);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    border-color: rgba(240, 69, 0, 0.6);
+    box-shadow: 0 0 0 3px rgba(240, 69, 0, 0.12);
   }
 
   /* Shimmer skeleton */
   .skeleton {
     background: linear-gradient(
       90deg,
-      rgba(255,255,255,0.05) 25%,
-      rgba(255,255,255,0.1) 50%,
-      rgba(255,255,255,0.05) 75%
+      rgba(255,255,255,0.04) 25%,
+      rgba(255,255,255,0.08) 50%,
+      rgba(255,255,255,0.04) 75%
     );
     background-size: 200% 100%;
     animation: shimmer 2s infinite;

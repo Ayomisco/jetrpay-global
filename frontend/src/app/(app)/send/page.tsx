@@ -63,10 +63,12 @@ export default function SendPage() {
     setP2pErrors({});
 
     try {
+      if (!defaultWallet?.id) { toast('No wallet available to send from', 'error'); return; }
       await sendP2P.mutateAsync({
+        senderWalletId: defaultWallet.id,
         recipientEmail: p2pForm.recipientEmail,
         amount: parseFloat(p2pForm.amount),
-        currency: defaultWallet?.currency || 'USD',
+        currency: defaultWallet.currency,
         description: p2pForm.description,
       });
       toast('Transfer sent successfully!', 'success');

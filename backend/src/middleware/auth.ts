@@ -63,12 +63,11 @@ export const authorize = (...allowedRoles: string[]) => {
 
     if (!allowedRoles.includes(req.user.role)) {
       logger.warn({
-        message: 'Authorization failed',
         userId: req.user.userId,
         role: req.user.role,
         requiredRoles: allowedRoles,
         path: req.path
-      });
+      }, 'Authorization failed');
       return next(createError.forbidden('Insufficient permissions'));
     }
 

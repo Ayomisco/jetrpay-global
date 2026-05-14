@@ -16,7 +16,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-navy-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#080808] flex items-center justify-center p-4">
       <div className="glass p-8 max-w-sm w-full text-center animate-fade-in">
         <div className="w-16 h-16 rounded-full bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-3xl mx-auto mb-4">
           ⚠

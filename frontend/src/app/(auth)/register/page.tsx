@@ -56,7 +56,7 @@ export default function RegisterPage() {
     if (otp.length !== 6) { setErrors({ otp: 'Enter the 6-digit code' }); return; }
     setLoading(true);
     try {
-      await completeOtp(registeredEmail, otp, 'SIGNUP');
+      await completeOtp(registeredEmail, otp);
       setStep('success');
     } catch (err: any) {
       const msg = err?.response?.data?.message || 'Invalid code';
@@ -122,7 +122,7 @@ export default function RegisterPage() {
           </form>
           <p className="text-center text-sm text-white/40 mt-5">
             Already have an account?{' '}
-            <Link href="/auth/login" className="text-indigo-400 hover:text-indigo-300 font-medium">Sign in</Link>
+            <Link href="/login" className="text-orange-400 hover:text-orange-300 font-medium">Sign in</Link>
           </p>
         </>
       ) : (

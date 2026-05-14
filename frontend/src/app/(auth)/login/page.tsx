@@ -50,7 +50,7 @@ export default function LoginPage() {
     if (otp.length !== 6) { setErrors({ otp: 'Enter the 6-digit code' }); return; }
     setLoading(true);
     try {
-      await completeOtp(email, otp, 'LOGIN');
+      await completeOtp(email, otp);
       router.replace('/dashboard');
     } catch (err: any) {
       const msg = err?.response?.data?.message || 'Invalid code';
@@ -63,7 +63,7 @@ export default function LoginPage() {
 
   const resendOtp = async () => {
     try {
-      await authApi.resendOtp(email, 'LOGIN');
+      await authApi.resendOtp(email);
       toast('New code sent to your email', 'success');
     } catch {
       toast('Could not resend code. Try again.', 'error');
@@ -96,7 +96,7 @@ export default function LoginPage() {
               autoComplete="current-password"
             />
             <div className="flex justify-end">
-              <button type="button" className="text-xs text-indigo-400 hover:text-indigo-300">
+              <button type="button" className="text-xs text-orange-400 hover:text-orange-300">
                 Forgot password?
               </button>
             </div>
@@ -106,7 +106,7 @@ export default function LoginPage() {
           </form>
           <p className="text-center text-sm text-white/40 mt-5">
             Don&apos;t have an account?{' '}
-            <Link href="/auth/register" className="text-indigo-400 hover:text-indigo-300 font-medium">
+            <Link href="/register" className="text-orange-400 hover:text-orange-300 font-medium">
               Create one
             </Link>
           </p>
@@ -138,7 +138,7 @@ export default function LoginPage() {
           </form>
           <p className="text-center text-sm text-white/40 mt-4">
             Didn&apos;t receive it?{' '}
-            <button onClick={resendOtp} className="text-indigo-400 hover:text-indigo-300 font-medium">
+            <button onClick={resendOtp} className="text-orange-400 hover:text-orange-300 font-medium">
               Resend code
             </button>
           </p>
